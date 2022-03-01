@@ -11,7 +11,8 @@
   --fw-normal: 400;
   --fw-bold: 700;
   --fw-black: 900;
-  --grid: 1fr;
+  --grid: minmax(1em, 10%) minmax(10rem, 22ch) minmax(10rem, 23ch)
+    minmax(1em, 3fr) max-content;
 }
 
 body {
@@ -27,6 +28,10 @@ h3 {
   line-height: 1;
 }
 
+.btn + .btn {
+  margin-left: 1em;
+}
+
 .btn {
   cursor: pointer;
   display: inline-block;
@@ -36,7 +41,7 @@ h3 {
   letter-spacing: 1px;
   text-decoration: none;
   font-weight: var(--fw-bold);
-  margin-bottom: .75em;
+  margin-bottom: 0.75em;
 }
 
 .btn--primary {
@@ -44,25 +49,30 @@ h3 {
   color: var(--clr-light);
 }
 
-.btn--primary:hover{
-    background-color: var(--clr-dark);
+.btn--primary:hover {
+  background-color: var(--clr-dark);
 }
 
-.btn--outline{
-    outline: 3px solid var(--clr-primary);
-    outline-offset: -3px;
-    color: var(--clr-primary);
+.btn--outline {
+  outline: 3px solid var(--clr-primary);
+  outline-offset: -3px;
+  color: var(--clr-primary);
 }
-.btn--outline:hover{
-    background-color: var(--clr-dark);
-    outline-color: var(--clr-dark);
-    color: var(--clr-light);
+.btn--outline:hover {
+  background-color: var(--clr-dark);
+  outline-color: var(--clr-dark);
+  color: var(--clr-light);
+}
+.btn-container {
+  margin-top: 0;
 }
 
 header {
   background-color: var(--clr-light);
   text-align: center;
+  align-items: center;
 }
+
 .logo {
   margin-top: 1em;
 }
@@ -70,7 +80,8 @@ header {
 .nav__list {
   display: flex;
   justify-content: space-between;
-  margin: 0;
+  max-width: 35rem;
+  margin: 0 auto;
   /* margin-top: 1em; */
   padding: 1em;
   list-style: none;
@@ -84,6 +95,39 @@ header {
   text-decoration: none;
   color: inherit;
 }
+.nav__link:hover {
+  color: var(--clr-primary);
+}
+
+.nav__list-item {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+@media (min-width: 1000px) {
+  header {
+    display: grid;
+    grid-template-columns: var(--grid);
+  }
+  .weather {
+    grid-column: -2 / -1;
+    justify-self: end;
+  }
+  .logo,
+  .nav,
+  .weather {
+    grid-row: 1;
+  }
+
+  .logo {
+    grid-column: 2;
+    margin: 0;
+  }
+  .nav {
+    grid-column: 2 / 5;
+    justify-self: end;
+    margin-right: 3em;
+  }
+}
 
 .weather {
   display: grid;
@@ -91,6 +135,9 @@ header {
   background-color: var(--clr-dark);
   color: var(--clr-light);
   padding: 1em;
+  width: max-content;
+  position: relative;
+  z-index: 1;
 }
 
 .weather__icon {
@@ -141,6 +188,27 @@ header {
 .main {
   padding: 3em 1em 5rem;
 }
+@media (min-width: 500px) {
+  .main {
+    display: grid;
+    grid-template-columns: var(--grid);
+    justify-items: start;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .main > * {
+    grid-column: 2 / 4;
+  }
+  .main--ski {
+    background-position: left bottom;
+  }
+}
+
+@media (min-width: 1200px) {
+  .main--ski {
+    background-position: center right;
+  }
+}
 .main--ski {
   background-image: url(../img/mainsnowboard.jpg);
   background-size: cover;
@@ -150,4 +218,9 @@ header {
   line-height: 1;
   font-weight: var(--fw-bold);
   font-size: 3rem;
+  margin-bottom: 0;
+}
+
+.main__intro {
+  margin-bottom: 2rem;
 }
